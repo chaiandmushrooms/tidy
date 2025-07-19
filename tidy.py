@@ -20,7 +20,7 @@ def rename(files, dir):
     for file in files:
         extension = re.search(extension_pattern, file)
         filename = re.search(name_pattern, file)
-        if (filename is not None and extension is not None):
+        if (filename is not None and extension is not None and extension.group() != '.part'):
             filename = filename.group()
             filename = re.sub(r'[A-Za-z]', "", filename).lstrip('0') + extension.group()
             renamed = True
