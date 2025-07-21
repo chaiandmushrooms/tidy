@@ -1,3 +1,15 @@
+"""
+Tidies up all movie names and subtitles in a folder.
+
+Usage:
+    python movie.py folder_path
+
+Example:
+    How.To.Train.Your.Dragon.2010-SuccessfulCrab.mkv
+    ↓
+    how to train your dragon.mkv
+"""
+
 import sys
 import os
 import re
@@ -16,7 +28,7 @@ def rename_files(files: str, movie_name: str, folder: str) -> None:
 
 def get_movie_name(name: str) -> str:    
     pattern = r"\d{4}"
-
+    
     years = re.findall(pattern, name)
     if not years:
         print(f"Skipping folder (no year found): {name}")
@@ -26,8 +38,6 @@ def get_movie_name(name: str) -> str:
     return name.split(split_value)[0].rstrip("(").strip()
 
 def rename(folders: list) -> None:
-    extension_pattern = r'\.[^.\\/:*?"<>|\r\n]+$'
-    year_pattern = r"\d\d\d\d"
     for folder in folders:
         movie_name = get_movie_name(folder)
         rename_files(os.listdir(os.path.join(BASE_DIRECTORY, folder)), movie_name, folder)
